@@ -5,9 +5,7 @@ defmodule FriendsApp.CLI.MenuChoice do
     Shell.cmd("clear")
     Shell.info("Escolha uma opção:")
 
-    menu_items = FriendsApp.CLI.MenuItems.all()
-
-    menu_items
+    FriendsApp.CLI.MenuItems.all()
     |> Enum.map(&(&1.label))
     |> display_options
   end
