@@ -3,11 +3,11 @@ defmodule FriendsApp.CLI.Main do
 
   def start_app do
     Shell.cmd("clear")
-    welcome_message
+    welcome_message()
     Shell.prompt("Pressione enter para continuar...")
   end
 
-  def welcome_message do
+  defp welcome_message do
     Shell.info("=========== Friends App ===========")
     Shell.info("Seja bem-vindo à sua agenda pessoal")
     Shell.info("===================================")
