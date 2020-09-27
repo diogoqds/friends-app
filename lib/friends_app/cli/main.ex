@@ -4,7 +4,7 @@ defmodule FriendsApp.CLI.Main do
   def start_app do
     Shell.cmd("clear")
     welcome_message()
-    Shell.prompt("Pressione enter para continuar...")
+    Shell.prompt("Pressione ENTER para continuar...")
     starts_menu_choice()
   end
 
