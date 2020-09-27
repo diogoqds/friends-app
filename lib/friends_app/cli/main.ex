@@ -5,11 +5,16 @@ defmodule FriendsApp.CLI.Main do
     Shell.cmd("clear")
     welcome_message()
     Shell.prompt("Pressione enter para continuar...")
+    starts_menu_choice()
   end
 
   defp welcome_message do
     Shell.info("=========== Friends App ===========")
     Shell.info("Seja bem-vindo à sua agenda pessoal")
     Shell.info("===================================")
+  end
+
+  defp starts_menu_choice do
+    FriendsApp.CLI.MenuChoice.start()
   end
 end
