@@ -1,18 +1,5 @@
 defmodule FriendsApp do
-  @moduledoc """
-  Documentation for `FriendsApp`.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> FriendsApp.hello()
-      :world
-
-  """
-  def hello do
-    :world
+  def init do
+    FriendsApp.CLI.Main.start_app
   end
 end
