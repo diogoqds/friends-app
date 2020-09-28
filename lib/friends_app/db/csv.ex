@@ -17,11 +17,9 @@ defmodule FriendsApp.DB.CSV do
 
   defp create do
     collect_data()
-    |> Map.from_struct()
-    |> Map.values()
-    |> wrap_in_list()
-    |> CSVParser.dump_to_iodata()
-    |> save_csv_file()
+    |> transform_on_wrapped_list()
+    |> prepare_list_to_save()
+    |> save_csv_file([:append])
   end
 
   defp read do
@@ -32,6 +30,18 @@ defmodule FriendsApp.DB.CSV do
       %Friend{name: name, email: email, phone: phone}
     end)
     |> Scribe.console(data: [{"Name", :name}, {"Email", :email}, {"Phone", :phone}])
+  end
+
+  defp transform_on_wrapped_list(list) do
+    list
+    |> Map.from_struct()
+    |> Map.values()
+    |> wrap_in_list()
+  end
+
+  defp prepare_list_to_save(list) do
+    list
+    |> CSVParser.dump_to_iodata()
   end
 
   defp collect_data do
@@ -53,8 +63,8 @@ defmodule FriendsApp.DB.CSV do
     [list]
   end
 
-  defp save_csv_file(data) do
+  defp save_csv_file(data, mode \\ []) do
     Application.fetch_env!(:csv_file, :path)
-    |> File.write!(data, [:append])
+    |> File.write!(data, mode)
   end
 end
