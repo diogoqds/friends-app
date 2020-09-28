@@ -56,10 +56,9 @@ defmodule FriendsApp.CLI.Menu.Choice do
     Shell.cmd("clear")
     Shell.info("Você escolheu... [#{chosen_menu_item.label}]")
 
-    if Shell.yes?("Confirmar?") do
-      chosen_menu_item
-    else
-      start()
+    case Shell.yes?("Confirmar?") do
+      true -> chosen_menu_item
+      false -> start()
     end
   end
 
