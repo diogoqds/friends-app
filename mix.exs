@@ -23,7 +23,7 @@ defmodule FriendsApp.MixProject do
     [
       {:nimble_csv, "~> 0.3"},
       {:faker, "~> 0.12"},
-      {:scribe, "~> 0.8"},
+      {:scribe, "~> 0.8"}
     ]
   end
 end

@@ -7,13 +7,12 @@ defmodule FriendsApp.CLI.Menu.Choice do
     Shell.cmd("clear")
     Shell.info("Escolha uma opção:")
 
-
     menu_items = Items.all()
 
-    find_menu_item_by_index = &(Enum.at(menu_items, &1, :error))
+    find_menu_item_by_index = &Enum.at(menu_items, &1, :error)
 
     menu_items
-    |> Enum.map(&(&1.label))
+    |> Enum.map(& &1.label)
     |> display_options()
     |> generate_question()
     |> Shell.prompt()
@@ -21,13 +20,13 @@ defmodule FriendsApp.CLI.Menu.Choice do
     |> find_menu_item_by_index.()
     |> confirm_menu_item()
     |> confirm_message()
-    |> CSV.perform
+    |> CSV.perform()
   end
 
   defp display_options(options) do
     options
     |> Enum.with_index(1)
-    |> Enum.each(fn { option, index } -> 
+    |> Enum.each(fn {option, index} ->
       Shell.info("#{index} - #{option}")
     end)
 
@@ -40,8 +39,8 @@ defmodule FriendsApp.CLI.Menu.Choice do
   end
 
   defp parse_answer(answer) do
-    case  Integer.parse(answer) do
-      { option, _ } -> option - 1
+    case Integer.parse(answer) do
+      {option, _} -> option - 1
       :error -> invalid_option()
     end
   end

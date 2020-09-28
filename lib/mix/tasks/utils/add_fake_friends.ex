@@ -2,15 +2,16 @@ defmodule Mix.Tasks.Utils.AddFakeFriends do
   use Mix.Task
   alias NimbleCSV.RFC4180, as: CSVParser
   alias FriendsApp.CLI.Friend
-  
+
   @shortdoc "Add Fake Friends on App"
   def run(_) do
     Faker.start()
+
     create_friends([], 50)
     |> CSVParser.dump_to_iodata()
     |> save_csv_file()
 
-    IO.puts "Amigos cadastrados com sucesso!"
+    IO.puts("Amigos cadastrados com sucesso!")
   end
 
   defp create_friends(list, 1) do
@@ -22,7 +23,7 @@ defmodule Mix.Tasks.Utils.AddFakeFriends do
   end
 
   defp random_list_friend do
-    %Friend{ 
+    %Friend{
       name: Faker.Person.PtBr.name(),
       email: Faker.Internet.email(),
       phone: Faker.Phone.EnUs.phone()
@@ -32,6 +33,6 @@ defmodule Mix.Tasks.Utils.AddFakeFriends do
   end
 
   defp save_csv_file(data) do
-    File.write!("#{File.cwd!}/friends.csv", data, [:append])
+    File.write!(Application.fetch_env!(:csv_file, :path), data, [:append])
   end
 end
