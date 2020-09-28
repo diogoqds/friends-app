@@ -32,8 +32,8 @@ defmodule FriendsApp.DB.CSV do
     |> Scribe.console(data: [{"Name", :name}, {"Email", :email}, {"Phone", :phone}])
   end
 
-  defp transform_on_wrapped_list(list) do
-    list
+  defp transform_on_wrapped_list(struct) do
+    struct
     |> Map.from_struct()
     |> Map.values()
     |> wrap_in_list()
