@@ -23,12 +23,35 @@ defmodule FriendsApp.DB.CSV do
   end
 
   defp read do
-    Application.fetch_env!(:csv_file, :path)
-    |> File.read!()
-    |> CSVParser.parse_string(skip_headers: true)
+    get_struct_list_from_csv
+    |> show_friends()
+  end
+
+  defp get_struct_list_from_csv do
+    read_csv_file
+    |> parse_csv_file_to_list
+    |> csv_list_to_friend_struct_list
+  end
+
+  defp csv_list_to_friend_struct_list(list) do
+    list
     |> Enum.map(fn [email, name, phone] ->
       %Friend{name: name, email: email, phone: phone}
     end)
+  end
+  
+  defp read_csv_file do
+    Application.fetch_env!(:csv_file, :path)
+    |> File.read!()
+  end
+
+  defp parse_csv_file_to_list(csv) do
+    csv
+    |> CSVParser.parse_string(skip_headers: true)
+  end
+
+  defp show_friends(list) do
+    list
     |> Scribe.console(data: [{"Name", :name}, {"Email", :email}, {"Phone", :phone}])
   end
 
